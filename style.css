@@ -32,3 +32,11 @@
     justify-content: space-between;
     background-color: rgb(218, 146, 146);
 }
+
+.eachTodo {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    background-color: salmon;
+    justify-content: space-between;
+}
