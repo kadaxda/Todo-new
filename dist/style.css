@@ -14,7 +14,7 @@
 .content {
     display: inline-block;
     min-height: 60vh;
-    width: 30vw;
+    width: 60vw;
     border: 1px solid red;
 }
 
@@ -39,4 +39,8 @@
     height: 30px;
     background-color: salmon;
     justify-content: space-between;
+}
+
+h3 {
+    cursor: pointer;
 }

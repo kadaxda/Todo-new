@@ -56,5 +56,28 @@ function deleteTodoEvent() {
 
 }
 
+let today = document.querySelector("#today");
+today.addEventListener("click", (e) => {
+    UI.vanishContent();
+    UI.showOnlyToday();
+    deleteTodoEvent();
+})
+
+let inbox = document.querySelector("#inbox");
+inbox.addEventListener("click", (e) => {
+    UI.vanishContent();
+    UI.displayInboxUI();
+    UI.showEveryTodo();
+    openFormEvent();
+    deleteTodoEvent();
+})
+
+
+let week = document.querySelector("#week");
+week.addEventListener("click", (e) => {
+    UI.vanishContent();
+    UI.showOnlyWeek();
+    deleteTodoEvent();
+})
 
 export {openFormEvent, deleteTodoEvent}

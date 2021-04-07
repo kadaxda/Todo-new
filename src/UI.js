@@ -1,3 +1,5 @@
+import { allTodos } from "./index.js"
+import { isThisWeek, toDate  } from 'date-fns'
 class UI {
     // displays Header and add button
     static displayInboxUI() {
@@ -73,6 +75,39 @@ class UI {
                             </div>`
         content.insertBefore(message, InputFormContainer);
         
+    }
+
+    static vanishContent() {
+        let content = document.querySelector(".content");
+        content.innerHTML = "";
+    }
+
+    static showEveryTodo() {
+        allTodos.forEach((todo) => {
+            console.log(todo)
+            this.showDisplayTodo(todo.title, todo.dueDate, todo.priority)
+        })
+    }
+
+    static showOnlyToday() {
+        allTodos.forEach((todo) => {
+            let today = new Date().toISOString().slice(0, 10)
+            if(today == todo.dueDate) {
+                this.showDisplayTodo(todo.title, todo.dueDate, todo.priority);
+            }
+            
+        })
+    }
+
+    static showOnlyWeek() {
+        allTodos.forEach((todo) => {
+            let today = new Date().toISOString().slice(0, 10);
+            console.log(toDate(todo.dueDate))
+            if(isThisWeek(todo.dueDate)) {
+                this.showDisplayTodo(todo.title, todo.dueDate, todo.priority);
+            }
+            
+        })
     }
 }
 
