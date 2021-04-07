@@ -23,4 +23,4 @@ openFormEvent()
 
 
 
-export { todo }
+export { todo, allTodos }
