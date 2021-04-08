@@ -1,5 +1,5 @@
 import { UI } from "./UI"
-import { todo } from "./index"
+import { allProjects, todo } from "./index"
 import { addTodo, deleteTodo } from "./data"
 
 
@@ -56,6 +56,35 @@ function deleteTodoEvent() {
 
 }
 
+function openProjectEvent() {
+    let openProjectsFormBtn = document.querySelector(".openProjectsFormBtn");
+    openProjectsFormBtn.addEventListener("click", (e) => {
+        UI.openProjectsForm();
+
+        let addBtn = document.querySelector("#addBtn");
+        addBtn.addEventListener("click", (e) => {
+            // UI
+            let titleInput = document.querySelector("#titleInput");
+            UI.addProject(titleInput.value);
+        })
+
+        let cancelBtn = document.querySelector("#cancelBtn");
+        cancelBtn.addEventListener("click", () => {
+            UI.closeProjectForm();
+        })
+    })
+}
+
+function openEachProjectEvent() {
+    let eachProject = document.querySelectorAll(".eachProject");
+    eachProject.forEach((project) => {
+        project.addEventListener("click", (e) => {
+            UI.vanishContent();
+            UI.showOneProject(project.textContent)
+        })
+    })
+}
+
 let today = document.querySelector("#today");
 today.addEventListener("click", (e) => {
     UI.vanishContent();
@@ -79,5 +108,13 @@ week.addEventListener("click", (e) => {
     UI.showOnlyWeek();
     deleteTodoEvent();
 })
+
+let project = document.querySelector("#projects");
+project.addEventListener("click", (e) => {
+    UI.vanishContent();
+    UI.showProject();
+    openProjectEvent();
+})
+
 
 export {openFormEvent, deleteTodoEvent}

@@ -1,5 +1,7 @@
-import { allTodos } from "./index.js"
-import { isThisWeek, toDate  } from 'date-fns'
+import { allTodos, allProjects } from "./index.js"
+import { isThisWeek } from 'date-fns'
+
+
 class UI {
     // displays Header and add button
     static displayInboxUI() {
@@ -90,6 +92,11 @@ class UI {
     }
 
     static showOnlyToday() {
+        let content = document.querySelector(".content");
+        let header = document.createElement("h2");
+        header.textContent = "Today";
+        content.appendChild(header);
+
         allTodos.forEach((todo) => {
             let today = new Date().toISOString().slice(0, 10)
             if(today == todo.dueDate) {
@@ -100,14 +107,78 @@ class UI {
     }
 
     static showOnlyWeek() {
+        let content = document.querySelector(".content");
+        let header = document.createElement("h2");
+        header.textContent = "This week";
+        content.appendChild(header);
+
         allTodos.forEach((todo) => {
-            let today = new Date().toISOString().slice(0, 10);
-            console.log(toDate(todo.dueDate))
-            if(isThisWeek(todo.dueDate)) {
+            let YYYY = todo.dueDate.slice(0, 4);
+            let MM = todo.dueDate.slice(5, 7) - 1;
+            let DD = todo.dueDate.slice(8, 10);
+            
+            if(isThisWeek(new Date(YYYY, MM, DD))) {
                 this.showDisplayTodo(todo.title, todo.dueDate, todo.priority);
             }
             
         })
+    }
+
+    static showProject() {
+        let content = document.querySelector(".content");
+        let header = document.createElement("h2");
+        header.textContent = "Projects";
+        content.appendChild(header);
+
+        let openProjectsFormBtn = document.createElement("button");
+        openProjectsFormBtn.setAttribute("type", "submit");
+        openProjectsFormBtn.classList.add("openProjectsFormBtn")
+        openProjectsFormBtn.textContent = "+";
+        content.appendChild(openProjectsFormBtn);
+    }
+
+    static openProjectsForm() {
+        let content = document.querySelector(".content");
+        let openProjectsFormBtn = document.querySelector(".openProjectsFormBtn")
+        let projectForm = document.createElement("div");
+        projectForm.classList.add("projectFormContainer")
+        projectForm.innerHTML = `<div class="projectForm">
+                                    <label  for="title">Title: </label>
+                                    <input id="titleInput" type="text">
+                                    <input type="button" value="Add" id="addBtn">
+                                    <input type="button" value="Cancel" id="cancelBtn">
+                                </div>`;  
+        content.insertBefore(projectForm, openProjectsFormBtn);
+    }
+
+    static addProject(project) {
+        let sidebar = document.querySelector(".sidebar");
+        let newProject = document.createElement("h4");
+        newProject.textContent = project;
+        sidebar.appendChild(newProject)
+    }
+
+    static showAllProjects() {
+        let sidebar = document.querySelector(".sidebar");
+        allProjects.forEach((project) => {
+            let newProject = document.createElement("h4");
+            newProject.classList.add("eachProject")
+            newProject.textContent = project;
+            sidebar.appendChild(newProject)
+        })
+    }
+
+    static closeProjectForm() {
+        let projectForm = document.querySelector(".projectForm");
+        projectForm.parentElement.removeChild(projectForm)
+    }
+
+    static showOneProject(project) {
+        let content = document.querySelector(".content");
+        let projectHeader = document.createElement("h3");
+        projectHeader.textContent = project;
+
+        content.appendChild(projectHeader)
     }
 }
 
