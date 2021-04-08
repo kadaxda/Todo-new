@@ -174,12 +174,22 @@ class UI {
     }
 
     static showOneProject(project) {
+        //Display the right header of the Project
         let content = document.querySelector(".content");
         let projectHeader = document.createElement("h3");
+        projectHeader.classList.add("projectHeader")
         projectHeader.textContent = project;
+        content.appendChild(projectHeader);
 
-        content.appendChild(projectHeader)
+        //Add a "add todo" button to the project
+        let openFormBtn = document.createElement("button");
+        openFormBtn.setAttribute("type", "submit");
+        openFormBtn.classList.add("openFormBtn")
+        openFormBtn.textContent = "+";
+        content.appendChild(openFormBtn);
     }
+
+
 }
 
 export { UI }

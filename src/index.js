@@ -1,5 +1,5 @@
 import { UI } from "./UI"
-import { openFormEvent, deleteTodoEvent } from "./events"
+import { openFormEvent, deleteTodoEvent, openEachProjectEvent } from "./events"
 
 // contains every todo
 let allTodos = [];
@@ -7,11 +7,11 @@ let allProjects = ["haus", "maus"];
 
 // todo class
 class todo {
-    constructor(title, dueDate, priority) {
+    constructor(title, dueDate, priority, project) {
         this.title = title;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.project = "standard";
+        this.project = project;
         allTodos.push(this)
     }
 }
@@ -24,7 +24,10 @@ function init() {
     UI.displayInboxUI()
     UI.showEveryTodo()
     UI.showAllProjects();
-    openFormEvent()
+    openFormEvent();
+    if(allProjects.length >= 1) {
+        openEachProjectEvent();
+    }
     deleteTodoEvent();
 }
 

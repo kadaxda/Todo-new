@@ -1,8 +1,8 @@
 import { todo } from "./index"
 import { allTodos } from "./index.js"
 
-function addTodo(title, date, priority) {
-    let newTodo = new todo(title, date, priority);
+function addTodo(title, date, priority, project) {
+    let newTodo = new todo(title, date, priority, project);
     console.log(allTodos);
 }
 

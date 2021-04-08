@@ -23,11 +23,12 @@ function openFormEvent() {
             let title = document.querySelector("#titleInput").value;
             let date = document.querySelector("#dateInput").value;
             let priority = document.querySelector("#selectInput").value;
+            let project = "standard";
             if(title == "" || date == "" || priority == "") {
                 UI.showValidationError();
                 return;
             }
-            addTodo(title, date, priority);
+            addTodo(title, date, priority, project);
 
             //UI
             UI.closeForm();
@@ -81,7 +82,43 @@ function openEachProjectEvent() {
         project.addEventListener("click", (e) => {
             UI.vanishContent();
             UI.showOneProject(project.textContent)
+            openEachProjectsForm();
         })
+    })
+}
+
+function openEachProjectsForm() {
+    let eachProjectFormBtn = document.querySelector(".openFormBtn");
+    eachProjectFormBtn.addEventListener("click", (e) => {
+        let projectName = document.querySelector(".projectHeader").textContent;
+        UI.openForm();
+
+        let cancelBtn = document.querySelector("#cancelBtn");
+        cancelBtn.addEventListener("click", function(e) {
+            //UI
+            UI.closeForm()
+        }) 
+
+        let addBtn = document.querySelector("#addBtn");
+        addBtn.addEventListener("click", (e) => {
+
+            //DATA
+            let title = document.querySelector("#titleInput").value;
+            let date = document.querySelector("#dateInput").value;
+            let priority = document.querySelector("#selectInput").value;
+            let project = projectName;
+            if(title == "" || date == "" || priority == "") {
+                UI.showValidationError();
+                return;
+            }
+            addTodo(title, date, priority, project);
+
+            //UI
+            UI.closeForm();
+            UI.showDisplayTodo(title, date, priority);
+
+            deleteTodoEvent();
+            })
     })
 }
 
@@ -117,4 +154,4 @@ project.addEventListener("click", (e) => {
 })
 
 
-export {openFormEvent, deleteTodoEvent}
+export {openFormEvent, deleteTodoEvent, openEachProjectEvent}
