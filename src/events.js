@@ -8,12 +8,12 @@ function openFormEvent() {
     let openFormBtn = document.querySelector(".openFormBtn");
     openFormBtn.addEventListener("click", (e) => {
         
-        UI.openForm()
+        UI.openNewTodoForm()
         // Cancel Btn closes form
         let cancelBtn = document.querySelector("#cancelBtn");
         cancelBtn.addEventListener("click", function(e) {
             //UI
-            UI.closeForm()
+            UI.closeNewTodoForm()
         })
 
         let addBtn = document.querySelector("#addBtn");
@@ -31,8 +31,8 @@ function openFormEvent() {
             addTodo(title, date, priority, project);
 
             //UI
-            UI.closeForm();
-            UI.showDisplayTodo(title, date, priority);
+            UI.closeNewTodoForm();
+            UI.displayOneTodo(title, date, priority);
 
             deleteTodoEvent();
             })
@@ -83,6 +83,7 @@ function openEachProjectEvent() {
             UI.vanishContent();
             UI.showOneProject(project.textContent)
             openEachProjectsForm();
+            UI.showOnlyProject(project.textContent);
         })
     })
 }
@@ -91,12 +92,12 @@ function openEachProjectsForm() {
     let eachProjectFormBtn = document.querySelector(".openFormBtn");
     eachProjectFormBtn.addEventListener("click", (e) => {
         let projectName = document.querySelector(".projectHeader").textContent;
-        UI.openForm();
+        UI.openNewTodoForm();
 
         let cancelBtn = document.querySelector("#cancelBtn");
         cancelBtn.addEventListener("click", function(e) {
             //UI
-            UI.closeForm()
+            UI.closeNewTodoForm()
         }) 
 
         let addBtn = document.querySelector("#addBtn");
@@ -114,9 +115,11 @@ function openEachProjectsForm() {
             addTodo(title, date, priority, project);
 
             //UI
-            UI.closeForm();
-            UI.showDisplayTodo(title, date, priority);
+            UI.closeNewTodoForm();
+            UI.displayOneTodo(title, date, priority);
 
+            
+    
             deleteTodoEvent();
             })
     })
@@ -133,7 +136,7 @@ let inbox = document.querySelector("#inbox");
 inbox.addEventListener("click", (e) => {
     UI.vanishContent();
     UI.displayInboxUI();
-    UI.showEveryTodo();
+    UI.displayEveryTodo();
     openFormEvent();
     deleteTodoEvent();
 })

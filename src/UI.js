@@ -3,7 +3,7 @@ import { isThisWeek } from 'date-fns'
 
 
 class UI {
-    // displays Header and add button
+    // displays Header and openFormBtn
     static displayInboxUI() {
         let content = document.querySelector(".content");
         let header = document.createElement("h2");
@@ -16,8 +16,8 @@ class UI {
         openFormBtn.textContent = "+";
         content.appendChild(openFormBtn);
     }
-    // displays form after clicking on openformbtn
-    static openForm() {
+    // displays form after clicking on openFormBtn
+    static openNewTodoForm() {
         let content = document.querySelector(".content");
         let openFormBtn = document.querySelector(".openFormBtn")
         let inputForm = document.createElement("div");
@@ -41,14 +41,14 @@ class UI {
         content.insertBefore(inputForm, openFormBtn);
     }
     // closes form
-    static closeForm() {
+    static closeNewTodoForm() {
         let inputForm = document.querySelector(".inputForm");
         inputForm.parentElement.removeChild(inputForm)
     }
 
-    static showDisplayTodo(title, dueDate, priority) {
+    // displays one todo
+    static displayOneTodo(title, dueDate, priority) {
         let content = document.querySelector(".content");
-        
         let eachTodo = document.createElement("div");
         eachTodo.innerHTML = `<div class="eachTodo">
                                     <p id="title" >${title}</p>
@@ -59,14 +59,15 @@ class UI {
                                     
                                 </div>`
         content.appendChild(eachTodo);
-        
     }
 
+    // deletes Todo
     static deleteTodo() {
         let todo = document.querySelector(".get-deleted");
         todo.parentElement.removeChild(todo);
     }
 
+    // shows Validation Error when user input isnt good
     static showValidationError() {
         let content = document.querySelector(".content");
         let InputFormContainer = document.querySelector(".InputFormContainer")
@@ -79,15 +80,17 @@ class UI {
         
     }
 
+    // deletes everything On .content Class
     static vanishContent() {
         let content = document.querySelector(".content");
         content.innerHTML = "";
     }
 
-    static showEveryTodo() {
+    // Lists every todo in content
+    static displayEveryTodo() {
         allTodos.forEach((todo) => {
             console.log(todo)
-            this.showDisplayTodo(todo.title, todo.dueDate, todo.priority)
+            this.displayOneTodo(todo.title, todo.dueDate, todo.priority)
         })
     }
 
@@ -100,7 +103,7 @@ class UI {
         allTodos.forEach((todo) => {
             let today = new Date().toISOString().slice(0, 10)
             if(today == todo.dueDate) {
-                this.showDisplayTodo(todo.title, todo.dueDate, todo.priority);
+                this.displayOneTodo(todo.title, todo.dueDate, todo.priority);
             }
             
         })
@@ -118,7 +121,7 @@ class UI {
             let DD = todo.dueDate.slice(8, 10);
             
             if(isThisWeek(new Date(YYYY, MM, DD))) {
-                this.showDisplayTodo(todo.title, todo.dueDate, todo.priority);
+                this.displayOneTodo(todo.title, todo.dueDate, todo.priority);
             }
             
         })
@@ -158,6 +161,7 @@ class UI {
         sidebar.appendChild(newProject)
     }
 
+    // shows all projects in the sidebar
     static showAllProjects() {
         let sidebar = document.querySelector(".sidebar");
         allProjects.forEach((project) => {
@@ -189,6 +193,13 @@ class UI {
         content.appendChild(openFormBtn);
     }
 
+    static showOnlyProject(projectName) {
+        allTodos.forEach((todo) => {
+            if(todo.project == projectName) {
+                this.displayOneTodo(todo.title, todo.dueDate, todo.priority);
+            }
+        })
+    }
 
 }
 

@@ -1,11 +1,12 @@
 import { todo } from "./index"
 import { allTodos } from "./index.js"
 
+// Adds todo to allTodos
 function addTodo(title, date, priority, project) {
     let newTodo = new todo(title, date, priority, project);
-    console.log(allTodos);
 }
 
+// Removes todo on allTodos
 function deleteTodo() {
     let todo = document.querySelector(".get-deleted");
     let title = todo.firstElementChild.textContent;
