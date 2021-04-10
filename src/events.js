@@ -1,6 +1,6 @@
 import { UI } from "./UI"
 import { allProjects, todo } from "./index"
-import { addTodo, deleteTodo } from "./data"
+import { addTodo, deleteTodo, getObj } from "./data"
 
 
 // Press on + button -> Opens input Form
@@ -22,19 +22,20 @@ function openFormEvent() {
             //DATA
             let title = document.querySelector("#titleInput").value;
             let date = document.querySelector("#dateInput").value;
-            let priority = document.querySelector("#selectInput").value;
+            let priority = "low";
             let project = "standard";
             if(title == "" || date == "" || priority == "") {
                 UI.showValidationError();
                 return;
             }
-            addTodo(title, date, priority, project);
+            addTodo(title, date, priority, project, "");
 
             //UI
             UI.closeNewTodoForm();
             UI.displayOneTodo(title, date, priority);
 
             deleteTodoEvent();
+            editTodoEvent()
             })
     })
 
@@ -106,7 +107,7 @@ function openEachProjectsForm() {
             //DATA
             let title = document.querySelector("#titleInput").value;
             let date = document.querySelector("#dateInput").value;
-            let priority = document.querySelector("#selectInput").value;
+            let priority = "low";
             let project = projectName;
             if(title == "" || date == "" || priority == "") {
                 UI.showValidationError();
@@ -125,11 +126,26 @@ function openEachProjectsForm() {
     })
 }
 
+
+function editTodoEvent() {
+    let editBtns = document.querySelectorAll("#editBtn");
+    editBtns.forEach((Btn) => {
+        Btn.addEventListener("click", (e) => {
+            Btn.parentElement.classList.add("edit");
+
+            UI.showEditForm();
+        })
+    })
+}
+
+
+
 let today = document.querySelector("#today");
 today.addEventListener("click", (e) => {
     UI.vanishContent();
     UI.showOnlyToday();
     deleteTodoEvent();
+    editTodoEvent()
 })
 
 let inbox = document.querySelector("#inbox");
@@ -139,6 +155,7 @@ inbox.addEventListener("click", (e) => {
     UI.displayEveryTodo();
     openFormEvent();
     deleteTodoEvent();
+    editTodoEvent()
 })
 
 
@@ -147,14 +164,16 @@ week.addEventListener("click", (e) => {
     UI.vanishContent();
     UI.showOnlyWeek();
     deleteTodoEvent();
+    editTodoEvent()
 })
 
 let project = document.querySelector("#projects");
 project.addEventListener("click", (e) => {
     UI.vanishContent();
-    UI.showProject();
+    UI.displayProjectUI();
     openProjectEvent();
+    editTodoEvent()
 })
 
 
-export {openFormEvent, deleteTodoEvent, openEachProjectEvent}
+export {openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent}

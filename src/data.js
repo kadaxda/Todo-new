@@ -20,4 +20,14 @@ function deleteTodo() {
 
 }
 
-export {addTodo, deleteTodo}
+function getObj() {
+    let todo = document.querySelector(".edit");
+    console.log(todo)
+    allTodos.forEach((eachTodo) => {
+        if(eachTodo.title == todo.firstChild.textContent) {
+            console.log("HU")
+        }
+    })
+}
+
+export {addTodo, deleteTodo, getObj}

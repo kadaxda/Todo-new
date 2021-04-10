@@ -27,14 +27,7 @@ class UI {
                                     <input id="titleInput" type="text">
                                     <label for="dueDate">Due Date: </label>
                                     <input id="dateInput" type="date">
-                                    <label for="priority">Priority: </label>
-                                    <div class="selectWrapper">
-                                        <select id="selectInput">
-                                        <option>high</option>
-                                        <option>medium</option>
-                                        <option>low</option>
-                                        </select>
-                                    </div>
+                                 
                                     <input type="button" value="Add" id="addBtn">
                                     <input type="button" value="Cancel" id="cancelBtn">
                                 </div>`;  
@@ -53,12 +46,24 @@ class UI {
         eachTodo.innerHTML = `<div class="eachTodo">
                                     <p id="title" >${title}</p>
                                     <p id="dueDate" >Due: ${dueDate}</p>
-                                    <p>Priority: ${priority}</p>
-                                
+                                    <input type="button" value="Edit" id="editBtn">
                                     <button id="deleteBtn"><i class="material-icons">delete</i></button>
-                                    
                                 </div>`
+        
         content.appendChild(eachTodo);
+
+        // changes color for priority
+        switch(priority) {
+            case "low":
+                eachTodo.classList.add("lowPriority");
+                break;
+            case "medium": 
+                eachTodo.classList.add("mediumPriority");
+                break;
+            case "high":
+                eachTodo.classList.add("highPriority");
+                break;
+        }
     }
 
     // deletes Todo
@@ -127,7 +132,15 @@ class UI {
         })
     }
 
-    static showProject() {
+    static showOnlyProject(projectName) {
+        allTodos.forEach((todo) => {
+            if(todo.project == projectName) {
+                this.displayOneTodo(todo.title, todo.dueDate, todo.priority);
+            }
+        })
+    }
+
+    static displayProjectUI() {
         let content = document.querySelector(".content");
         let header = document.createElement("h2");
         header.textContent = "Projects";
@@ -193,13 +206,34 @@ class UI {
         content.appendChild(openFormBtn);
     }
 
-    static showOnlyProject(projectName) {
-        allTodos.forEach((todo) => {
-            if(todo.project == projectName) {
-                this.displayOneTodo(todo.title, todo.dueDate, todo.priority);
-            }
-        })
-    }
+   static showEditForm() {
+       UI.vanishContent();
+       let content = document.querySelector(".content");
+       let expandTodo = document.createElement("div");
+       expandTodo.innerHTML = 
+       `<div class="expandTodo">
+            <label for="title">Title: </label>
+            <input id="titleInput" type="text">
+            <label for="dueDate">Due Date: </label>
+            <input id="dueDateInput" type="date">
+
+            <label for="textDescription">Text Description: </label>
+            <input id="textDescriptionInput" type="text">
+            <label for="priority">Priority: </label>
+            <div class="selectWrapper">
+                <select id="select">
+                <option>high</option>
+                <option>medium</option>
+                <option>low</option>
+                </select>
+            </div>
+            <div class="addAndCancelContainer">
+                <input type="button" value="Add">
+                <input type="button" value="Cancel">
+            </div>
+        </div>`
+        content.appendChild(expandTodo)
+   }
 
 }
 
