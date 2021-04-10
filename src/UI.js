@@ -228,11 +228,26 @@ class UI {
                 </select>
             </div>
             <div class="addAndCancelContainer">
-                <input type="button" value="Add">
-                <input type="button" value="Cancel">
+                <input type="button" value="Add" id="AddBtn">
+                <input type="button" value="Cancel" id="CancelBtn">
             </div>
         </div>`
         content.appendChild(expandTodo)
+   }
+
+   static closeEditForm() {
+       let editForm = document.querySelector(".expandTodo");
+       editForm.innerHTML = "";
+       this.vanishContent();
+       UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
+        UI.displayEveryTodo(); // lists every todo in content
+        UI.showAllProjects(); //shows all projects in the sidebar
+        openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
+        if(allProjects.length >= 1) {
+            openEachProjectEvent(); //if there is a project -> you can click on it
+        }
+        deleteTodoEvent(); //lets you delete the todos
+        editTodoEvent();
    }
 
 }

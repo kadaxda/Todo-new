@@ -1,6 +1,7 @@
 import { UI } from "./UI"
 import { allProjects, todo } from "./index"
 import { addTodo, deleteTodo, getObj } from "./data"
+import { objectArray } from "./data.js"
 
 
 // Press on + button -> Opens input Form
@@ -129,14 +130,47 @@ function openEachProjectsForm() {
 
 function editTodoEvent() {
     let editBtns = document.querySelectorAll("#editBtn");
+    let title = document.querySelector("#title").textContent;
+
     editBtns.forEach((Btn) => {
         Btn.addEventListener("click", (e) => {
-            Btn.parentElement.classList.add("edit");
 
+            // Get objectArray [0=title, 1=duedate, 2=despcription, 3=prio]
+            getObj(title);
+            
             UI.showEditForm();
+
+            let titleInput = document.querySelector("#titleInput");
+            titleInput.value = objectArray[0];
+
+            let dateInput = document.querySelector("#dueDateInput");
+            dateInput.value = objectArray[1];
+
+            if(objectArray[2] != undefined) {
+                let textDescriptionInput = document.querySelector("#textDescriptionInput");
+                textDescriptionInput.value = objectArray[2];
+            }
+
+            if(objectArray[3] != undefined) {
+                let select = document.querySelector("#select");
+                select.value = objectArray[3];
+            }
+
+
+            let addBtn = document.querySelector("#AddBtn");
+            addBtn.addEventListener("click", (e) => {
+
+            })
+
+
+            let cancelBtn = document.querySelector("#CancelBtn");
+            cancelBtn.addEventListener("click", (e) => {
+                UI.closeEditForm();
+            })
         })
     })
 }
+
 
 
 

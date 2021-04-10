@@ -20,14 +20,15 @@ function deleteTodo() {
 
 }
 
-function getObj() {
-    let todo = document.querySelector(".edit");
-    console.log(todo)
+let objectArray = [];
+function getObj(title) {
+    // console.log(todo)
     allTodos.forEach((eachTodo) => {
-        if(eachTodo.title == todo.firstChild.textContent) {
-            console.log("HU")
+        if(title == eachTodo.title) {
+            objectArray = [eachTodo.title, eachTodo.dueDate, eachTodo.textDescription, eachTodo.priority]
+            console.log(objectArray)
         }
     })
 }
 
-export {addTodo, deleteTodo, getObj}
+export {addTodo, deleteTodo, getObj, objectArray}
