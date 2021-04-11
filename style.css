@@ -74,7 +74,8 @@ h3, #projects, .eachProject {
 
 
 #textDescriptionInput {
-    padding: 70px 0px;   
+    padding: 10px;
+    padding-bottom: 120px;   
 }
 
 .selectWrapper{
@@ -86,4 +87,14 @@ h3, #projects, .eachProject {
     margin-top: 30px;
     width: 300px;
     justify-content: space-between;
+}
+
+.lowPriority {
+    background-color: rgb(169, 169, 241);
+}
+.mediumPriority {
+    background-color: rgb(250, 144, 153);
+}
+.highPriority {
+    background-color: crimson;
 }
