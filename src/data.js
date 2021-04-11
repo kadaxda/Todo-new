@@ -1,5 +1,5 @@
 import { todo } from "./index"
-import { allTodos } from "./index.js"
+import { allTodos, allProjects } from "./index.js"
 
 // Adds todo to allTodos
 function addTodo(title, date, priority, project) {
@@ -20,15 +20,18 @@ function deleteTodo() {
 
 }
 
-let objectArray = [];
+
 function getObj(title) {
-    // console.log(todo)
-    allTodos.forEach((eachTodo) => {
-        if(title == eachTodo.title) {
-            objectArray = [eachTodo.title, eachTodo.dueDate, eachTodo.textDescription, eachTodo.priority]
-            console.log(objectArray)
+    for(let i = 0; i<allTodos.length; i++) {
+        if(allTodos[i].title == title) {
+            return allTodos[i]
         }
-    })
+    }
+    
 }
 
-export {addTodo, deleteTodo, getObj, objectArray}
+function addProject(title) {
+    allProjects.push(title)
+}
+
+export {addTodo, deleteTodo, getObj, addProject}

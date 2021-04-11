@@ -1,7 +1,7 @@
 import { UI } from "./UI"
-import { allProjects, todo } from "./index"
-import { addTodo, deleteTodo, getObj } from "./data"
-import { objectArray } from "./data.js"
+import { allProjects, allTodos, todo } from "./index"
+import { addTodo, deleteTodo, getObj, addProject } from "./data"
+import { saveTodos, saveProjects } from "./localstorage"
 
 
 // Press on + button -> Opens input Form
@@ -37,6 +37,8 @@ function openFormEvent() {
 
             deleteTodoEvent();
             editTodoEvent()
+
+            saveTodos();
             })
     })
 
@@ -51,6 +53,7 @@ function deleteTodoEvent() {
             
             // DATA
             deleteTodo()
+            saveTodos();
 
             // UI
             UI.deleteTodo();          
@@ -69,6 +72,11 @@ function openProjectEvent() {
             // UI
             let titleInput = document.querySelector("#titleInput");
             UI.addProject(titleInput.value);
+
+            //DATA
+            addProject(titleInput.value)
+            saveProjects();
+            openEachProjectEvent();
         })
 
         let cancelBtn = document.querySelector("#cancelBtn");
@@ -115,6 +123,7 @@ function openEachProjectsForm() {
                 return;
             }
             addTodo(title, date, priority, project);
+            saveTodos();
 
             //UI
             UI.closeNewTodoForm();
@@ -130,42 +139,54 @@ function openEachProjectsForm() {
 
 function editTodoEvent() {
     let editBtns = document.querySelectorAll("#editBtn");
-    let title = document.querySelector("#title").textContent;
+
 
     editBtns.forEach((Btn) => {
         Btn.addEventListener("click", (e) => {
 
-            // Get objectArray [0=title, 1=duedate, 2=despcription, 3=prio]
-            getObj(title);
-            
+            console.log(Btn.parentElement.firstChild.textContent)
+            title = Btn.parentElement.firstChild.textContent;
+
+            let todoObj = getObj(title);
+            console.log(todoObj)
+
             UI.showEditForm();
 
             let titleInput = document.querySelector("#titleInput");
-            titleInput.value = objectArray[0];
+            titleInput.value = todoObj.title;
 
             let dateInput = document.querySelector("#dueDateInput");
-            dateInput.value = objectArray[1];
+            dateInput.value = todoObj.dueDate;
 
-            if(objectArray[2] != undefined) {
-                let textDescriptionInput = document.querySelector("#textDescriptionInput");
-                textDescriptionInput.value = objectArray[2];
+            let textDescriptionInput = document.querySelector("#textDescriptionInput") ;
+            
+            textDescriptionInput.value = todoObj.textDescription;
+
+            if(todoObj.textDescription == undefined) {
+                textDescriptionInput.value = " ";
             }
 
-            if(objectArray[3] != undefined) {
-                let select = document.querySelector("#select");
-                select.value = objectArray[3];
-            }
-
+            let priorityInput = document.querySelector("select");
+            priorityInput.value = todoObj.priority;
 
             let addBtn = document.querySelector("#AddBtn");
             addBtn.addEventListener("click", (e) => {
+                todoObj.title = titleInput.value;
+                todoObj.dueDate = dateInput.value;
+                todoObj.textDescription = textDescriptionInput.value;
+                todoObj.priority = priorityInput.value;
 
+                UI.closeEditForm();
+                editTodoEvent();
+                console.log(allTodos)
+                saveTodos();
             })
 
 
             let cancelBtn = document.querySelector("#CancelBtn");
             cancelBtn.addEventListener("click", (e) => {
                 UI.closeEditForm();
+                editTodoEvent();
             })
         })
     })

@@ -1,9 +1,10 @@
 import { UI } from "./UI"
 import { openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent } from "./events"
+import { loadTodos, loadProjects } from "./localstorage"
 
 // stores every todo/ project
 let allTodos = [];
-let allProjects = ["haus", "maus"];
+let allProjects = [];
 
 // todo class
 class todo {
@@ -18,11 +19,16 @@ class todo {
 }
 
 // dummy todos
-let a = new todo("bossbibel", "2021-04-09")
-let b = new todo("bibel", "2012-02-12")
+// let a = new todo("bossbibel", "2021-04-09", "low")
+// let b = new todo("bibel", "2012-02-12")
+
+
+
 
 // first load
 function init() {
+    loadTodos();
+    loadProjects();
     UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
     UI.displayEveryTodo(); // lists every todo in content
     UI.showAllProjects(); //shows all projects in the sidebar

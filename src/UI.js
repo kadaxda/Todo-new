@@ -1,5 +1,6 @@
 import { allTodos, allProjects } from "./index.js"
 import { isThisWeek } from 'date-fns'
+import { openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent } from "./events"
 
 
 class UI {
@@ -43,12 +44,36 @@ class UI {
     static displayOneTodo(title, dueDate, priority) {
         let content = document.querySelector(".content");
         let eachTodo = document.createElement("div");
-        eachTodo.innerHTML = `<div class="eachTodo">
-                                    <p id="title" >${title}</p>
-                                    <p id="dueDate" >Due: ${dueDate}</p>
-                                    <input type="button" value="Edit" id="editBtn">
-                                    <button id="deleteBtn"><i class="material-icons">delete</i></button>
-                                </div>`
+        eachTodo.classList.add("eachTodo");
+        let titleText = document.createElement("p");
+        titleText.setAttribute("id", "title");
+        titleText.textContent  = title;
+
+        let dueDateText = document.createElement("p");
+        dueDateText.setAttribute("id", "title");
+        dueDateText.textContent  = `Due: ${dueDate}`;
+
+        let editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.setAttribute("id", "editBtn");
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.setAttribute("id", "deleteBtn");
+        deleteBtn.textContent = "Delete";
+
+        eachTodo.appendChild(titleText)
+        eachTodo.appendChild(dueDateText)
+        eachTodo.appendChild(editBtn)
+        eachTodo.appendChild(deleteBtn)
+
+
+
+        // eachTodo.innerHTML = `<div class="eachTodo">
+        //                             <p id="title" >${title}</p>
+        //                             <p id="dueDate" >Due: ${dueDate}</p>
+        //                             <input type="button" value="Edit" id="editBtn">
+        //                             <button id="deleteBtn"><i class="material-icons">delete</i></button>
+        //                         </div>`
         
         content.appendChild(eachTodo);
 
@@ -64,6 +89,7 @@ class UI {
                 eachTodo.classList.add("highPriority");
                 break;
         }
+        editTodoEvent();
     }
 
     // deletes Todo
@@ -170,6 +196,7 @@ class UI {
     static addProject(project) {
         let sidebar = document.querySelector(".sidebar");
         let newProject = document.createElement("h4");
+        newProject.classList.add("eachProject")
         newProject.textContent = project;
         sidebar.appendChild(newProject)
     }
@@ -241,6 +268,7 @@ class UI {
        this.vanishContent();
        UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
         UI.displayEveryTodo(); // lists every todo in content
+        this.vanishSidebar();
         UI.showAllProjects(); //shows all projects in the sidebar
         openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
         if(allProjects.length >= 1) {
@@ -248,6 +276,14 @@ class UI {
         }
         deleteTodoEvent(); //lets you delete the todos
         editTodoEvent();
+   }
+
+   static vanishSidebar() {
+       let eachProjects = document.querySelectorAll(".eachProject");
+       eachProjects.forEach((project) => {
+           project.innerHTML = "";
+       })
+
    }
 
 }
