@@ -27,17 +27,30 @@ class todo {
 
 // first load
 function init() {
+
+
     loadTodos();
     loadProjects();
-    UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
-    UI.displayEveryTodo(); // lists every todo in content
-    UI.showAllProjects(); //shows all projects in the sidebar
-    openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
-    if(allProjects.length >= 1) {
-        openEachProjectEvent(); //if there is a project -> you can click on it
+
+    if(allTodos.length == 0 && allProjects.length == 0) {
+
+        UI.displayInboxUI();
+        openFormEvent();
+    
+    } 
+
+    else {
+        UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
+        UI.displayEveryTodo(); // lists every todo in content
+        UI.showAllProjects(); //shows all projects in the sidebar
+        openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
+        if(allProjects.length >= 1) {
+            openEachProjectEvent(); //if there is a project -> you can click on it
+        }
+        deleteTodoEvent(); //lets you delete the todos
+        editTodoEvent();
     }
-    deleteTodoEvent(); //lets you delete the todos
-    editTodoEvent();
+
 }
 
 init();

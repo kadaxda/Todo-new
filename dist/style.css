@@ -47,6 +47,10 @@ h3, #projects, .eachProject {
     cursor: pointer;
 }
 
+.eachProject {
+    display: flex;
+}
+
 .validationError {
     background-color: rgb(223, 37, 37);
 }

@@ -1,6 +1,7 @@
 import { allTodos, allProjects } from "./index.js"
 import { isThisWeek } from 'date-fns'
 import { openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent } from "./events"
+import { addProject } from "./data.js";
 
 
 class UI {
@@ -120,7 +121,6 @@ class UI {
     // Lists every todo in content
     static displayEveryTodo() {
         allTodos.forEach((todo) => {
-            console.log(todo)
             this.displayOneTodo(todo.title, todo.dueDate, todo.priority)
         })
     }
@@ -195,20 +195,26 @@ class UI {
 
     static addProject(project) {
         let sidebar = document.querySelector(".sidebar");
+        let projectContainer = document.createElement("div");
+        projectContainer.classList.add("eachProject")
+
         let newProject = document.createElement("h4");
-        newProject.classList.add("eachProject")
         newProject.textContent = project;
-        sidebar.appendChild(newProject)
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+    
+        projectContainer.appendChild(newProject)
+        projectContainer.appendChild(deleteBtn)
+        sidebar.appendChild(projectContainer)
+
     }
 
     // shows all projects in the sidebar
     static showAllProjects() {
-        let sidebar = document.querySelector(".sidebar");
-        allProjects.forEach((project) => {
-            let newProject = document.createElement("h4");
-            newProject.classList.add("eachProject")
-            newProject.textContent = project;
-            sidebar.appendChild(newProject)
+        console.log(allProjects)
+        allProjects.forEach((Myproject) => {
+            UI.addProject(Myproject)
         })
     }
 

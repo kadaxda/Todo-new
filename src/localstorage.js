@@ -6,6 +6,9 @@ export function saveTodos() {
 }
 
 export function loadTodos() {
+    if(JSON.parse(localStorage.getItem("allTodos")) == null) {
+        return;
+    }
     allTodos = JSON.parse(localStorage.getItem("allTodos"));
 }
 
@@ -14,5 +17,8 @@ export function saveProjects() {
 }
 
 export function loadProjects() {
+    if(JSON.parse(localStorage.getItem("allProjects")) == null) {
+        return;
+    }
     allProjects = JSON.parse(localStorage.getItem("allProjects"));
 }
