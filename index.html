@@ -12,15 +12,21 @@
 <body>
 
     <div class="outerWrap">
-        <h1>Todo List</h1>
-        
+        <div class="headerContainer">
+            <i class="material-icons" id="headerLogo">done_all</i>
+            <h1>Todo List</h1>
+        </div>
+
         <div class="innerWrap">
             <div class="sidebar">
-                <h3 id="inbox">Inbox</h3>
-                <h3 id="today">Today</h3>
-                <h3 id="week">This week</h3>
-
-                <h2 id="projects">Projects</h2>
+                <div class="sidebarContent">
+                    
+                    <h3  id="inbox"> <span class="material-icons" id="sidebarLogo">inbox</span> Inbox</h3>
+                    <h3 id="today"> <span class="material-icons" id="sidebarLogo">today</span> Today</h3>
+                    <h3 id="week"> <span class="material-icons" id="sidebarLogo">date_range</span> This week</h3>
+                    <br>
+                    <h2 id="projects">Projects</h2>
+                </div>
             </div>
 
             <div class="content">
