@@ -198,11 +198,15 @@ class UI {
         let projectContainer = document.createElement("div");
         projectContainer.classList.add("eachProject")
 
-        let newProject = document.createElement("h4");
-        newProject.textContent = project;
 
-        let deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
+        let newProject = document.createElement("div");
+        newProject.innerHTML = `<div class="eachProjectsHeader"> ${project}</div> 
+                                <div class="eachProjectsLogo><span class="material-icons" id="projectSidebarLogo">list</span></div>`
+
+
+        let deleteBtn = document.createElement("div");
+        deleteBtn.innerHTML = `<div class="ProjectDeleteBtn"> <span class="material-icons" id="deleteLogo">delete</span></div>`
+
     
         projectContainer.appendChild(newProject)
         projectContainer.appendChild(deleteBtn)

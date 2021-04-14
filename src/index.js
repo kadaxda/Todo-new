@@ -1,5 +1,5 @@
 import { UI } from "./UI"
-import { openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent } from "./events"
+import { openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent, deleteProjectEvent} from "./events"
 import { loadTodos, loadProjects } from "./localstorage"
 
 // stores every todo/ project
@@ -47,6 +47,7 @@ function init() {
         if(allProjects.length >= 1) {
             openEachProjectEvent(); //if there is a project -> you can click on it
         }
+        deleteProjectEvent();
         deleteTodoEvent(); //lets you delete the todos
         editTodoEvent();
     }

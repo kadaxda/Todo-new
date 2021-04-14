@@ -1,3 +1,4 @@
+import { id } from "date-fns/locale";
 import { todo } from "./index"
 import { allTodos, allProjects } from "./index.js"
 
@@ -34,4 +35,16 @@ function addProject(title) {
     allProjects.push(title)
 }
 
-export {addTodo, deleteTodo, getObj, addProject}
+
+function deleteProject(projectName) {
+
+
+    for(let i = 0; i<allProjects.length; i++) {
+        if(allProjects[i] == projectName) {
+            allProjects.splice(i, 1);
+            console.log(allProjects)
+        }
+    }
+}
+
+export {addTodo, deleteTodo, getObj, addProject, deleteProject}

@@ -1,6 +1,6 @@
 import { UI } from "./UI"
 import { allProjects, allTodos, todo } from "./index"
-import { addTodo, deleteTodo, getObj, addProject } from "./data"
+import { addTodo, deleteTodo, getObj, addProject,  deleteProject } from "./data"
 import { saveTodos, saveProjects } from "./localstorage"
 
 
@@ -77,6 +77,7 @@ function openProjectEvent() {
             addProject(titleInput.value)
             saveProjects();
             openEachProjectEvent();
+            deleteProjectEvent();
         })
 
         let cancelBtn = document.querySelector("#cancelBtn");
@@ -87,13 +88,14 @@ function openProjectEvent() {
 }
 
 function openEachProjectEvent() {
-    let eachProject = document.querySelectorAll(".eachProject");
-    eachProject.forEach((project) => {
+    let eachProjectsHeader = document.querySelectorAll(".eachProjectsHeader");
+    eachProjectsHeader.forEach((project) => {
         project.addEventListener("click", (e) => {
             UI.vanishContent();
             UI.showOneProject(project.textContent)
             openEachProjectsForm();
             UI.showOnlyProject(project.textContent);
+            deleteProjectEvent();
         })
     })
 }
@@ -130,7 +132,7 @@ function openEachProjectsForm() {
             UI.displayOneTodo(title, date, priority);
 
             
-    
+            deleteProjectEvent();
             deleteTodoEvent();
             })
     })
@@ -192,7 +194,21 @@ function editTodoEvent() {
     })
 }
 
-
+function deleteProjectEvent() {
+    let allProjectDeleteBtns = document.querySelectorAll(".ProjectDeleteBtn");
+    allProjectDeleteBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            // DATA
+            let projectName = btn.parentElement.parentElement.firstChild.textContent;
+            console.log(projectName)
+            deleteProject(projectName);
+            saveProjects();
+             // UI
+             btn.parentElement.parentElement.innerHTML = "";
+             
+        })
+    })
+}
 
 
 let today = document.querySelector("#today");
@@ -201,6 +217,7 @@ today.addEventListener("click", (e) => {
     UI.showOnlyToday();
     deleteTodoEvent();
     editTodoEvent()
+    deleteProjectEvent();
 })
 
 let inbox = document.querySelector("#inbox");
@@ -210,7 +227,8 @@ inbox.addEventListener("click", (e) => {
     UI.displayEveryTodo();
     openFormEvent();
     deleteTodoEvent();
-    editTodoEvent()
+    editTodoEvent();
+    deleteProjectEvent();
 })
 
 
@@ -219,7 +237,8 @@ week.addEventListener("click", (e) => {
     UI.vanishContent();
     UI.showOnlyWeek();
     deleteTodoEvent();
-    editTodoEvent()
+    editTodoEvent();
+    deleteProjectEvent();
 })
 
 let project = document.querySelector("#projects");
@@ -227,8 +246,9 @@ project.addEventListener("click", (e) => {
     UI.vanishContent();
     UI.displayProjectUI();
     openProjectEvent();
-    editTodoEvent()
+    editTodoEvent();
+    deleteProjectEvent();
 })
 
 
-export {openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent}
+export {openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent, deleteProjectEvent}
