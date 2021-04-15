@@ -8,7 +8,7 @@
 .sidebar {
     display: inline-block;
     min-height: 60vh;
-    width: 15vw;
+    width: 13vw;
     background-color: rgb(228, 228, 250);
 }
 
@@ -23,22 +23,55 @@
     display: flex;
 }
 
+#addBtn, #cancelBtn {
+    width: 60px;
+    text-decoration: none;
+    border: none;
+    padding: 5px;
+}
+#addBtn {
+    background-color: rgb(176, 200, 245);
+}
+#cancelBtn {
+    background-color: rgb(151, 174, 247);
+}
+#editBtn, #deleteBtn {
+    cursor: pointer;
+}
+#title {
+    margin: 0px 20px;
+    width: 150px;
+}
+
+
+
+#editBtn {
+    margin-left: 125px;
+}
 .inputForm {
+    padding: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: rgb(218, 146, 146);
+    justify-content: center;
+    width: 635px;
+    background-color: rgb(84, 167, 206);
+}
+
+#titleInput, #dateInput {
+    margin-left: 5px;
+    margin-right: 30px;
 }
 
 .eachTodo {
     display: flex;
     align-items: center;
     height: 30px;
-    background-color: salmon;
-    justify-content: space-between;
+    width: 500px;
+    background-color: rgb(114, 245, 250);
+    
 }
 
-h3, #projects, .eachProject {
+h3, #projects {
     cursor: pointer;
 }
 
@@ -86,13 +119,13 @@ h3, #projects, .eachProject {
 }
 
 .lowPriority {
-    background-color: rgb(169, 169, 241);
+    background-color: rgb(191, 191, 248);
 }
 .mediumPriority {
-    background-color: rgb(250, 144, 153);
+    background-color: rgb(250, 208, 144);
 }
 .highPriority {
-    background-color: crimson;
+    background-color: rgb(250, 87, 120);
 }
 
 #headerLogo {
@@ -110,12 +143,18 @@ h1 {
     font-size: 70px;
 }
 
+h2, h3 {
+    margin: 10px;
+}
+
 .sidebarContent {
     margin-left: 10px;
     margin-top: 10px;
 
 }
-
+.openProjectsFormBtn {
+    cursor: pointer;
+}
 #sidebarLogo {
     margin-right: 3px;
 }
@@ -128,13 +167,26 @@ h1 {
     margin-bottom: 7px;
 }
 .eachProject {
-    margin-left: 20px;
+    margin-left: 40px;
     margin-top: 2px;
     display: flex;
+    width: 270px;
+    height: 30px;
     align-items: center;
+    position: relative;
+}
+.ProjectDeleteBtn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+.eachProjectsHeader {
+    cursor: pointer;
+    margin: 0px 10px;
+}
+.openFormBtn {
+    cursor: pointer;
+    display: inline-block;
 }
 
-.eachProjectsHeader {
-    display: flex;
-    align-items: center;
-}
