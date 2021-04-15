@@ -8,7 +8,7 @@ import { saveTodos, saveProjects } from "./localstorage"
 function openFormEvent() {
     let openFormBtn = document.querySelector(".openFormBtn");
     openFormBtn.addEventListener("click", (e) => {
-        
+
         UI.openNewTodoForm()
         // Cancel Btn closes form
         let cancelBtn = document.querySelector("#cancelBtn");
@@ -40,6 +40,7 @@ function openFormEvent() {
 
             saveTodos();
             })
+
     })
 
 }
@@ -154,7 +155,7 @@ function editTodoEvent() {
 
             UI.showEditForm();
 
-            let titleInput = document.querySelector("#titleInput");
+            let titleInput = document.querySelector("#titleEditInput");
             titleInput.value = todoObj.title;
 
             let dateInput = document.querySelector("#dueDateInput");
@@ -199,12 +200,12 @@ function deleteProjectEvent() {
     allProjectDeleteBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             // DATA
-            let projectName = btn.parentElement.parentElement.firstChild.textContent;
-            console.log(projectName)
+            let projectName = btn.parentElement.parentElement.children[1].textContent;
+            console.log(allProjects, projectName)
             deleteProject(projectName);
             saveProjects();
              // UI
-             btn.parentElement.parentElement.innerHTML = "";
+            btn.parentElement.parentElement.parentElement.removeChild(btn.parentElement.parentElement)
              
         })
     })

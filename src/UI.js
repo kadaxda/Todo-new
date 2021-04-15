@@ -1,7 +1,6 @@
 import { allTodos, allProjects } from "./index.js"
 import { isThisWeek } from 'date-fns'
 import { openFormEvent, deleteTodoEvent, openEachProjectEvent, editTodoEvent } from "./events"
-import { addProject } from "./data.js";
 
 
 class UI {
@@ -12,14 +11,21 @@ class UI {
         header.textContent = "Inbox";
         content.appendChild(header);
 
-        let openFormBtn = document.createElement("button");
-        openFormBtn.setAttribute("type", "submit");
+        let openFormBtn = document.createElement("div")
         openFormBtn.classList.add("openFormBtn")
-        openFormBtn.textContent = "+";
+        openFormBtn.innerHTML = `<span class="material-icons-outlined" id="newTodoLogo">add</span>`
         content.appendChild(openFormBtn);
     }
     // displays form after clicking on openFormBtn
     static openNewTodoForm() {
+
+        //Checks if there is alerady the todo form open
+        let temp = document.getElementsByClassName("InputFormContainer")
+        console.log(temp.length)
+        if(temp.length > 0) {
+            return;
+        }
+
         let content = document.querySelector(".content");
         let openFormBtn = document.querySelector(".openFormBtn")
         let inputForm = document.createElement("div");
@@ -33,6 +39,9 @@ class UI {
                                     <input type="button" value="Add" id="addBtn">
                                     <input type="button" value="Cancel" id="cancelBtn">
                                 </div>`;  
+
+        
+
         content.insertBefore(inputForm, openFormBtn);
     }
     // closes form
@@ -51,31 +60,22 @@ class UI {
         titleText.textContent  = title;
 
         let dueDateText = document.createElement("p");
-        dueDateText.setAttribute("id", "title");
+        dueDateText.setAttribute("id", "date");
         dueDateText.textContent  = `Due: ${dueDate}`;
 
-        let editBtn = document.createElement("button");
-        editBtn.textContent = "Edit";
+        let editBtn = document.createElement("div");
         editBtn.setAttribute("id", "editBtn");
+        editBtn.innerHTML = `<span class="material-icons-outlined">edit</span>`
 
-        let deleteBtn = document.createElement("button");
+        let deleteBtn = document.createElement("div");
         deleteBtn.setAttribute("id", "deleteBtn");
-        deleteBtn.textContent = "Delete";
+        deleteBtn.innerHTML = `<span class="material-icons-outlined">delete</span>`;
 
         eachTodo.appendChild(titleText)
         eachTodo.appendChild(dueDateText)
         eachTodo.appendChild(editBtn)
         eachTodo.appendChild(deleteBtn)
 
-
-
-        // eachTodo.innerHTML = `<div class="eachTodo">
-        //                             <p id="title" >${title}</p>
-        //                             <p id="dueDate" >Due: ${dueDate}</p>
-        //                             <input type="button" value="Edit" id="editBtn">
-        //                             <button id="deleteBtn"><i class="material-icons">delete</i></button>
-        //                         </div>`
-        
         content.appendChild(eachTodo);
 
         // changes color for priority
@@ -172,10 +172,9 @@ class UI {
         header.textContent = "Projects";
         content.appendChild(header);
 
-        let openProjectsFormBtn = document.createElement("button");
-        openProjectsFormBtn.setAttribute("type", "submit");
+        let openProjectsFormBtn = document.createElement("div")
         openProjectsFormBtn.classList.add("openProjectsFormBtn")
-        openProjectsFormBtn.textContent = "+";
+        openProjectsFormBtn.innerHTML = `<span class="material-icons-outlined" id="newTodoLogo">add</span>`
         content.appendChild(openProjectsFormBtn);
     }
 
@@ -194,20 +193,22 @@ class UI {
     }
 
     static addProject(project) {
+        console.log(project)
         let sidebar = document.querySelector(".sidebar");
         let projectContainer = document.createElement("div");
         projectContainer.classList.add("eachProject")
 
 
         let newProject = document.createElement("div");
-        newProject.innerHTML = `<div class="eachProjectsHeader"> ${project}</div> 
-                                <div class="eachProjectsLogo><span class="material-icons" id="projectSidebarLogo">list</span></div>`
+        newProject.innerHTML = `<div class="eachProjectsHeader">${project}</div>`
 
+        let sidebarLogo = document.createElement("div");
+        sidebarLogo.innerHTML = `<div class="eachProjectsLogo"><span class="material-icons" id="projectSidebarLogo">list</span></div>`
 
         let deleteBtn = document.createElement("div");
-        deleteBtn.innerHTML = `<div class="ProjectDeleteBtn"> <span class="material-icons" id="deleteLogo">delete</span></div>`
+        deleteBtn.innerHTML = `<div class="ProjectDeleteBtn"> <span class="material-icons-outlined" id="deleteLogo">delete</span></div>`
 
-    
+        projectContainer.appendChild(sidebarLogo)
         projectContainer.appendChild(newProject)
         projectContainer.appendChild(deleteBtn)
         sidebar.appendChild(projectContainer)
@@ -236,10 +237,9 @@ class UI {
         content.appendChild(projectHeader);
 
         //Add a "add todo" button to the project
-        let openFormBtn = document.createElement("button");
-        openFormBtn.setAttribute("type", "submit");
+        let openFormBtn = document.createElement("div")
         openFormBtn.classList.add("openFormBtn")
-        openFormBtn.textContent = "+";
+        openFormBtn.innerHTML = `<span class="material-icons-outlined" id="newTodoLogo">add</span>`
         content.appendChild(openFormBtn);
     }
 
@@ -250,7 +250,7 @@ class UI {
        expandTodo.innerHTML = 
        `<div class="expandTodo">
             <label for="title">Title: </label>
-            <input id="titleInput" type="text">
+            <input id="titleEditInput" type="text">
             <label for="dueDate">Due Date: </label>
             <input id="dueDateInput" type="date">
 
@@ -275,23 +275,23 @@ class UI {
    static closeEditForm() {
        let editForm = document.querySelector(".expandTodo");
        editForm.innerHTML = "";
-       this.vanishContent();
-       UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
-        UI.displayEveryTodo(); // lists every todo in content
-        this.vanishSidebar();
-        UI.showAllProjects(); //shows all projects in the sidebar
-        openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
-        if(allProjects.length >= 1) {
-            openEachProjectEvent(); //if there is a project -> you can click on it
-        }
-        deleteTodoEvent(); //lets you delete the todos
-        editTodoEvent();
+                this.vanishContent();
+                UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
+                this.vanishSidebar();
+                UI.displayEveryTodo(); // lists every todo in content
+                UI.showAllProjects(); //shows all projects in the sidebar
+                openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
+                if(allProjects.length >= 1) {
+                    openEachProjectEvent(); //if there is a project -> you can click on it
+                }
+                deleteTodoEvent(); //lets you delete the todos
+                editTodoEvent();
    }
 
    static vanishSidebar() {
        let eachProjects = document.querySelectorAll(".eachProject");
        eachProjects.forEach((project) => {
-           project.innerHTML = "";
+           project.parentElement.removeChild(project)
        })
 
    }
