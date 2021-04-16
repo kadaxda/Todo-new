@@ -18,7 +18,6 @@ class UI {
     }
     // displays form after clicking on openFormBtn
     static openNewTodoForm() {
-
         //Checks if there is alerady the todo form open
         let temp = document.getElementsByClassName("InputFormContainer")
         console.log(temp.length)
@@ -110,7 +109,13 @@ class UI {
                             </div>`
         content.insertBefore(message, InputFormContainer);
         
+        function clearError() {
+            content.removeChild(message)
+        }
+
+        setTimeout(clearError, 3000)
     }
+
 
     // deletes everything On .content Class
     static vanishContent() {

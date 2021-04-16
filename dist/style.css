@@ -78,6 +78,8 @@ h3, #projects {
 
 .validationError {
     background-color: rgb(223, 37, 37);
+    color: white;
+    width: 635px;
 }
 
 .expandTodo {
@@ -122,12 +124,13 @@ h3, #projects {
     background-color: rgb(191, 191, 248);
 }
 .mediumPriority {
-    background-color: rgb(250, 208, 144);
+    background-color: rgb(243, 250, 144);
 }
 .highPriority {
     background-color: rgb(250, 87, 120);
 }
 
+/*  HEADER DESIGN  */
 #headerLogo {
     font-size: 100px;
     margin: 0px 20px;
@@ -142,6 +145,8 @@ h3, #projects {
 h1 {
     font-size: 70px;
 }
+
+/*  END HEADER DESIGN */
 
 h2, h3 {
     margin: 10px;
@@ -190,3 +195,34 @@ h2, h3 {
     display: inline-block;
 }
 
+@media (max-width: 480px) {
+    /* #headerLogo .headerContainer h1 */
+    #headerLogo {
+        font-size: 80px;
+    }
+    .headerContainer {
+        height: 100px;
+        width: 100vw;
+    }
+    h1 {
+        font-size: 40px;
+    }
+
+    .innerWrap, .sidebar, .content {
+        display: block;
+    }
+    .sidebar {
+        width: 100vw;
+        min-height: 30vh;
+    }
+
+    .content, .eachTodo {
+        width: 100vw;
+    }
+    #title {
+        width: 200px;
+    }
+    #date  {
+        width: 400px;
+    }
+}
