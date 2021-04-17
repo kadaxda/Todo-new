@@ -213,7 +213,7 @@ h2, h3 {
     }
     .sidebar {
         width: 100vw;
-        min-height: 30vh;
+        min-height: 25vh;
     }
 
     .content, .eachTodo {
@@ -243,6 +243,9 @@ h2, h3 {
     }
     #titleInput {
         width: 100px;
+    }
+    #dateInput {
+        width: 80px;
     }
     #addBtn, #cancelBtn {
         width: 50px;
