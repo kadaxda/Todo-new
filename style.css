@@ -149,7 +149,7 @@ h1 {
 /*  END HEADER DESIGN */
 
 h2, h3 {
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 .sidebarContent {
@@ -223,6 +223,34 @@ h2, h3 {
         width: 200px;
     }
     #date  {
-        width: 400px;
+        width: 300px;
+        
+    }
+
+    #editBtn {
+        margin-left: 30px;
+    }
+
+    .sidebarContent, .sidebar, .headerContainer {
+        margin: 0px;
+    }
+    #projects {
+        margin-left: 10px;
+        margin-top: 0px;
+    }
+    .inputForm {
+        width: 100vw;
+    }
+    #titleInput {
+        width: 100px;
+    }
+    #addBtn, #cancelBtn {
+        width: 50px;
+        text-decoration: none;
+        border: none;
+        padding: 5px;
+    }
+    .validationError {
+        width: 100vw;
     }
 }
