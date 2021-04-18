@@ -64,7 +64,7 @@ class UI {
 
         let editBtn = document.createElement("div");
         editBtn.setAttribute("id", "editBtn");
-        editBtn.innerHTML = `<span>edit</span>`
+        editBtn.innerHTML = `<span class="material-icons-outlined">edit</span>`
 
         let deleteBtn = document.createElement("div");
         deleteBtn.setAttribute("id", "deleteBtn");
