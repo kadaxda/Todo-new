@@ -5,6 +5,7 @@ import {
   deleteTodoEvent,
   openEachProjectEvent,
   editTodoEvent,
+  deleteProjectEvent,
 } from "./events";
 
 class UI {
@@ -19,20 +20,17 @@ class UI {
     openFormBtn.classList.add("openFormBtn");
     openFormBtn.innerHTML = `<span class="material-icons-outlined" id="newTodoLogo">add</span>`;
     content.appendChild(openFormBtn);
+
+    //Event
+    openFormEvent();
   }
+
   // displays form after clicking on openFormBtn
   static openNewTodoForm() {
-    //Checks if there is alerady the todo form open
-    let temp = document.getElementsByClassName("InputFormContainer");
-    console.log(temp.length);
-    if (temp.length > 0) {
-      return;
-    }
-
     let content = document.querySelector(".content");
     let openFormBtn = document.querySelector(".openFormBtn");
     let inputForm = document.createElement("div");
-    inputForm.classList.add("InputFormContainer");
+    inputForm.classList.add("inputFormContainer");
     inputForm.innerHTML = `<div class="inputForm">
                                     <label  for="title">Title: </label>
                                     <input id="titleInput" type="text">
@@ -47,8 +45,8 @@ class UI {
   }
   // closes form
   static closeNewTodoForm() {
-    let inputForm = document.querySelector(".inputForm");
-    inputForm.parentElement.removeChild(inputForm);
+    let inputFormContainer = document.querySelector(".inputFormContainer");
+    inputFormContainer.parentElement.removeChild(inputFormContainer);
   }
 
   // displays one todo
@@ -92,6 +90,7 @@ class UI {
         break;
     }
     editTodoEvent();
+    deleteTodoEvent();
   }
 
   // deletes Todo
@@ -100,10 +99,46 @@ class UI {
     todo.parentElement.removeChild(todo);
   }
 
+  static showEditForm() {
+    UI.vanishContent();
+    let content = document.querySelector(".content");
+    let expandTodo = document.createElement("div");
+    expandTodo.innerHTML = `<div class="expandTodo">
+            <label for="title">Title: </label>
+            <input id="titleEditInput" type="text">
+            <label for="dueDate">Due Date: </label>
+            <input id="dueDateInput" type="date">
+
+            <label for="textDescription">Text Description: </label>
+            <input id="textDescriptionInput" type="text">
+            <label for="priority">Priority: </label>
+            <div class="selectWrapper">
+                <select id="select">
+                <option>high</option>
+                <option>medium</option>
+                <option>low</option>
+                </select>
+            </div>
+            <div class="addAndCancelContainer">
+                <input type="button" value="Add" id="AddBtn">
+                <input type="button" value="Cancel" id="CancelBtn">
+            </div>
+        </div>`;
+    content.appendChild(expandTodo);
+  }
+
+  static closeEditForm() {
+    let editForm = document.querySelector(".expandTodo");
+    editForm.innerHTML = "";
+    this.vanishContent();
+    UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
+    UI.displayEveryTodo(); // lists every todo in content
+  }
+
   // shows Validation Error when user input isnt good
   static showValidationError() {
     let content = document.querySelector(".content");
-    let InputFormContainer = document.querySelector(".InputFormContainer");
+    let InputFormContainer = document.querySelector(".inputFormContainer");
     let message = document.createElement("div");
 
     message.innerHTML = `<div class="validationError">
@@ -197,7 +232,6 @@ class UI {
   }
 
   static addProject(project) {
-    console.log(project);
     let sidebar = document.querySelector(".sidebar");
     let projectContainer = document.createElement("div");
     projectContainer.classList.add("eachProject");
@@ -215,11 +249,16 @@ class UI {
     projectContainer.appendChild(newProject);
     projectContainer.appendChild(deleteBtn);
     sidebar.appendChild(projectContainer);
+
+    openEachProjectEvent();
+    deleteProjectEvent();
   }
 
   // shows all projects in the sidebar
   static showAllProjects() {
-    console.log(allProjects);
+    if (allProjects == "") {
+      return;
+    }
     allProjects.forEach((Myproject) => {
       UI.addProject(Myproject);
     });
@@ -243,50 +282,6 @@ class UI {
     openFormBtn.classList.add("openFormBtn");
     openFormBtn.innerHTML = `<span class="material-icons-outlined" id="newTodoLogo">add</span>`;
     content.appendChild(openFormBtn);
-  }
-
-  static showEditForm() {
-    UI.vanishContent();
-    let content = document.querySelector(".content");
-    let expandTodo = document.createElement("div");
-    expandTodo.innerHTML = `<div class="expandTodo">
-            <label for="title">Title: </label>
-            <input id="titleEditInput" type="text">
-            <label for="dueDate">Due Date: </label>
-            <input id="dueDateInput" type="date">
-
-            <label for="textDescription">Text Description: </label>
-            <input id="textDescriptionInput" type="text">
-            <label for="priority">Priority: </label>
-            <div class="selectWrapper">
-                <select id="select">
-                <option>high</option>
-                <option>medium</option>
-                <option>low</option>
-                </select>
-            </div>
-            <div class="addAndCancelContainer">
-                <input type="button" value="Add" id="AddBtn">
-                <input type="button" value="Cancel" id="CancelBtn">
-            </div>
-        </div>`;
-    content.appendChild(expandTodo);
-  }
-
-  static closeEditForm() {
-    let editForm = document.querySelector(".expandTodo");
-    editForm.innerHTML = "";
-    this.vanishContent();
-    UI.displayInboxUI(); // displays InboxUI in content (header, openFormBtn)
-    this.vanishSidebar();
-    UI.displayEveryTodo(); // lists every todo in content
-    UI.showAllProjects(); //shows all projects in the sidebar
-    openFormEvent(); // Press on openFormBtn -> Opens input Form; Add/ Cancel Btn
-    if (allProjects.length >= 1) {
-      openEachProjectEvent(); //if there is a project -> you can click on it
-    }
-    deleteTodoEvent(); //lets you delete the todos
-    editTodoEvent();
   }
 
   static vanishSidebar() {

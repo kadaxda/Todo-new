@@ -8,16 +8,16 @@ function openFormEvent() {
   let openFormBtn = document.querySelector(".openFormBtn");
   openFormBtn.addEventListener("click", (e) => {
     UI.openNewTodoForm();
-    // Cancel Btn closes form
+
+    // Cancel
     let cancelBtn = document.querySelector("#cancelBtn");
     cancelBtn.addEventListener("click", function (e) {
-      //UI
       UI.closeNewTodoForm();
     });
 
+    // Add
     let addBtn = document.querySelector("#addBtn");
     addBtn.addEventListener("click", (e) => {
-      //DATA
       let title = document.querySelector("#titleInput").value;
       let date = document.querySelector("#dateInput").value;
       let priority = "low";
@@ -28,12 +28,8 @@ function openFormEvent() {
       }
       addTodo(title, date, priority, project, "");
 
-      //UI
       UI.closeNewTodoForm();
       UI.displayOneTodo(title, date, priority);
-
-      deleteTodoEvent();
-      editTodoEvent();
 
       saveTodos();
     });
@@ -45,13 +41,61 @@ function deleteTodoEvent() {
   deleteBtn.forEach((deleteButton) => {
     deleteButton.addEventListener("click", (e) => {
       deleteButton.parentElement.classList.add("get-deleted");
-
       // DATA
       deleteTodo();
       saveTodos();
 
-      // UI
       UI.deleteTodo();
+    });
+  });
+}
+
+function editTodoEvent() {
+  let editBtns = document.querySelectorAll("#editBtn");
+  editBtns.forEach((Btn) => {
+    Btn.addEventListener("click", (e) => {
+      console.log(Btn.parentElement.firstChild.textContent);
+      title = Btn.parentElement.firstChild.textContent;
+
+      let todoObj = getObj(title);
+      console.log(todoObj);
+
+      UI.showEditForm();
+
+      let titleInput = document.querySelector("#titleEditInput");
+      titleInput.value = todoObj.title;
+
+      let dateInput = document.querySelector("#dueDateInput");
+      dateInput.value = todoObj.dueDate;
+
+      let textDescriptionInput = document.querySelector(
+        "#textDescriptionInput"
+      );
+
+      textDescriptionInput.value = todoObj.textDescription;
+
+      if (todoObj.textDescription == undefined) {
+        textDescriptionInput.value = " ";
+      }
+
+      let priorityInput = document.querySelector("select");
+      priorityInput.value = todoObj.priority;
+
+      let addBtn = document.querySelector("#AddBtn");
+      addBtn.addEventListener("click", (e) => {
+        todoObj.title = titleInput.value;
+        todoObj.dueDate = dateInput.value;
+        todoObj.textDescription = textDescriptionInput.value;
+        todoObj.priority = priorityInput.value;
+
+        UI.closeEditForm();
+        saveTodos();
+      });
+
+      let cancelBtn = document.querySelector("#CancelBtn");
+      cancelBtn.addEventListener("click", (e) => {
+        UI.closeEditForm();
+      });
     });
   });
 }
@@ -66,12 +110,10 @@ function openProjectEvent() {
       // UI
       let titleInput = document.querySelector("#titleInput");
       UI.addProject(titleInput.value);
-
+      UI.closeProjectForm();
       //DATA
       addProject(titleInput.value);
       saveProjects();
-      openEachProjectEvent();
-      deleteProjectEvent();
     });
 
     let cancelBtn = document.querySelector("#cancelBtn");
@@ -123,63 +165,6 @@ function openEachProjectsForm() {
       //UI
       UI.closeNewTodoForm();
       UI.displayOneTodo(title, date, priority);
-
-      deleteProjectEvent();
-      deleteTodoEvent();
-    });
-  });
-}
-
-function editTodoEvent() {
-  let editBtns = document.querySelectorAll("#editBtn");
-
-  editBtns.forEach((Btn) => {
-    Btn.addEventListener("click", (e) => {
-      console.log(Btn.parentElement.firstChild.textContent);
-      title = Btn.parentElement.firstChild.textContent;
-
-      let todoObj = getObj(title);
-      console.log(todoObj);
-
-      UI.showEditForm();
-
-      let titleInput = document.querySelector("#titleEditInput");
-      titleInput.value = todoObj.title;
-
-      let dateInput = document.querySelector("#dueDateInput");
-      dateInput.value = todoObj.dueDate;
-
-      let textDescriptionInput = document.querySelector(
-        "#textDescriptionInput"
-      );
-
-      textDescriptionInput.value = todoObj.textDescription;
-
-      if (todoObj.textDescription == undefined) {
-        textDescriptionInput.value = " ";
-      }
-
-      let priorityInput = document.querySelector("select");
-      priorityInput.value = todoObj.priority;
-
-      let addBtn = document.querySelector("#AddBtn");
-      addBtn.addEventListener("click", (e) => {
-        todoObj.title = titleInput.value;
-        todoObj.dueDate = dateInput.value;
-        todoObj.textDescription = textDescriptionInput.value;
-        todoObj.priority = priorityInput.value;
-
-        UI.closeEditForm();
-        editTodoEvent();
-        console.log(allTodos);
-        saveTodos();
-      });
-
-      let cancelBtn = document.querySelector("#CancelBtn");
-      cancelBtn.addEventListener("click", (e) => {
-        UI.closeEditForm();
-        editTodoEvent();
-      });
     });
   });
 }
@@ -194,9 +179,11 @@ function deleteProjectEvent() {
       deleteProject(projectName);
       saveProjects();
       // UI
+      console.log(btn);
       btn.parentElement.parentElement.parentElement.removeChild(
         btn.parentElement.parentElement
       );
+      return;
     });
   });
 }
@@ -205,9 +192,6 @@ let today = document.querySelector("#today");
 today.addEventListener("click", (e) => {
   UI.vanishContent();
   UI.showOnlyToday();
-  deleteTodoEvent();
-  editTodoEvent();
-  deleteProjectEvent();
 });
 
 let inbox = document.querySelector("#inbox");
@@ -215,19 +199,12 @@ inbox.addEventListener("click", (e) => {
   UI.vanishContent();
   UI.displayInboxUI();
   UI.displayEveryTodo();
-  openFormEvent();
-  deleteTodoEvent();
-  editTodoEvent();
-  deleteProjectEvent();
 });
 
 let week = document.querySelector("#week");
 week.addEventListener("click", (e) => {
   UI.vanishContent();
   UI.showOnlyWeek();
-  deleteTodoEvent();
-  editTodoEvent();
-  deleteProjectEvent();
 });
 
 let project = document.querySelector("#projects");
@@ -235,7 +212,6 @@ project.addEventListener("click", (e) => {
   UI.vanishContent();
   UI.displayProjectUI();
   openProjectEvent();
-  editTodoEvent();
   deleteProjectEvent();
 });
 
