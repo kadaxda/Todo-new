@@ -55,7 +55,7 @@ function editTodoEvent() {
   editBtns.forEach((Btn) => {
     Btn.addEventListener("click", (e) => {
       console.log(Btn.parentElement.firstChild.textContent);
-       let title = Btn.parentElement.firstChild.textContent;
+      let title = Btn.parentElement.firstChild.textContent;
 
       let todoObj = getObj(title);
       console.log(todoObj);
