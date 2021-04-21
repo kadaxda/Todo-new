@@ -6,6 +6,7 @@ import {
   openEachProjectEvent,
   editTodoEvent,
   deleteProjectEvent,
+  openProjectEvent,
 } from "./events";
 
 class UI {
@@ -27,6 +28,11 @@ class UI {
 
   // displays form after clicking on openFormBtn
   static openNewTodoForm() {
+    let formExisting = document.getElementsByClassName("inputFormContainer");
+    if (formExisting.length != 0) {
+      return;
+    }
+
     let content = document.querySelector(".content");
     let openFormBtn = document.querySelector(".openFormBtn");
     let inputForm = document.createElement("div");
@@ -218,6 +224,11 @@ class UI {
   }
 
   static openProjectsForm() {
+    let formExisting = document.getElementsByClassName("projectFormContainer");
+    if (formExisting.length != 0) {
+      return;
+    }
+
     let content = document.querySelector(".content");
     let openProjectsFormBtn = document.querySelector(".openProjectsFormBtn");
     let projectForm = document.createElement("div");
@@ -265,8 +276,11 @@ class UI {
   }
 
   static closeProjectForm() {
-    let projectForm = document.querySelector(".projectForm");
-    projectForm.parentElement.removeChild(projectForm);
+    let projectFormContainer = document.querySelector(".projectFormContainer");
+    projectFormContainer.parentElement.removeChild(projectFormContainer);
+
+    openProjectEvent();
+    deleteProjectEvent();
   }
 
   static showOneProject(project) {

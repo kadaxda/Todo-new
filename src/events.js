@@ -109,6 +109,10 @@ function openProjectEvent() {
     addBtn.addEventListener("click", (e) => {
       // UI
       let titleInput = document.querySelector("#titleInput");
+      if (titleInput.value == "") {
+        UI.showValidationError();
+        return;
+      }
       UI.addProject(titleInput.value);
       UI.closeProjectForm();
       //DATA
@@ -221,4 +225,5 @@ export {
   openEachProjectEvent,
   editTodoEvent,
   deleteProjectEvent,
+  openProjectEvent,
 };
