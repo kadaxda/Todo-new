@@ -7,9 +7,9 @@
 
 .sidebar {
   display: inline-block;
-  min-height: 20vh;
-  width: 13vw;
-  background-color: rgb(228, 228, 250);
+  min-height: 15vh;
+  width: 16.5vw;
+  background-color: #c8ebf39c;
 }
 
 .content {
@@ -20,6 +20,7 @@
 
 .innerWrap {
   display: flex;
+  align-items: flex-start;
 }
 
 #addBtn,
@@ -53,7 +54,7 @@
   align-items: center;
   justify-content: center;
   width: 635px;
-  background-color: rgb(84, 167, 206);
+  background-color: rgba(84, 113, 206, 0.479);
 }
 
 #titleInput,
@@ -67,7 +68,6 @@
   align-items: center;
   height: 30px;
   width: 500px;
-  background-color: rgb(114, 245, 250);
 }
 
 h3,
@@ -88,7 +88,6 @@ h3,
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  border: 1px solid blue;
   position: relative;
   margin: auto;
   margin-top: 30px;
@@ -120,7 +119,7 @@ h3,
 }
 
 .lowPriority {
-  background-color: rgb(191, 191, 248);
+  background-color: rgba(188, 188, 219, 0.733);
 }
 .mediumPriority {
   background-color: rgb(243, 250, 144);
@@ -138,11 +137,13 @@ h3,
   display: flex;
   align-items: center;
   height: 140px;
-  background-color: rgb(49, 49, 247);
+  background-color: #132c33;
+  color: #d8e3e7;
 }
 
 h1 {
   font-size: 70px;
+  font-family: "Merienda", cursive;
 }
 
 /*  END HEADER DESIGN */
@@ -199,14 +200,14 @@ h3 {
 @media (max-width: 480px) {
   /* #headerLogo .headerContainer h1 */
   #headerLogo {
-    font-size: 80px;
+    font-size: 70px;
   }
   .headerContainer {
     height: 100px;
     width: 100vw;
   }
   h1 {
-    font-size: 40px;
+    font-size: 45px;
   }
 
   .innerWrap,
@@ -218,7 +219,9 @@ h3 {
     width: 100vw;
     min-height: 25vh;
   }
-
+  .content {
+    margin-top: 10px;
+  }
   .content,
   .eachTodo {
     width: 100vw;
@@ -233,7 +236,9 @@ h3 {
   #editBtn {
     margin-left: 30px;
   }
-
+  .sidebar {
+    border: 1px solid #6464644b;
+  }
   .sidebarContent,
   .sidebar,
   .headerContainer {
@@ -243,9 +248,7 @@ h3 {
     margin-left: 10px;
     margin-top: 0px;
   }
-  .inputForm {
-    width: 100vw;
-  }
+
   #titleInput {
     width: 100px;
   }
@@ -261,5 +264,29 @@ h3 {
   }
   .validationError {
     width: 100vw;
+  }
+
+  .inputForm {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100vw;
+    background-color: rgb(84, 167, 206);
+  }
+
+  .inputForm #titleInput,
+  #dateInput {
+    margin: 0px;
+    margin-bottom: 5px;
+    width: 400px;
+    height: 15px;
+  }
+  .expandTodo {
+    width: 100vw;
+  }
+
+  .projectFormContainer #titleInput {
+    width: 150px;
   }
 }
